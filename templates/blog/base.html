@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&family=Sriracha&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    {% block css %}{% endblock %}
+
+    
+</head>
+
+<body>
+    <div style="min-height:90vh; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style='background-color:rgb(64,46,40)'>
+                <div class="container-fluid">
+                    <a class="logo" href="{% url 'index' %}">Django</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blog:home' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blog:index' %}">Blogs</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navCategory" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                                <div class="dropdown-menu" aria-labelledby="navCategory">
+                                    {% for category in category_list %}
+                                    <a class="dropdown-item"
+                                        href="/blog/category/{{category.name}}">{{category.name|capfirst}}</a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navUser" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users</a>
+                                <div class="dropdown-menu" aria-labelledby="navUser">
+                                    {% for user in user_list %}
+                                    <a class="dropdown-item"
+                                        href="/blog/user/{{user.username}}">{{user.username|capfirst}}</a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown dropleft">
+                                <!-- Used .dropleft to avoid menu going off screen -->
+                                <a class="nav-link dropdown-toggle" href="#" id="navLoggedInUser" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">{{request.user}}</a>
+                                <div class="dropdown-menu" aria-labelledby="navLoggedInUser">
+                                    <a class="dropdown-item" href="{% url 'blog:edit' %}">My blog posts</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'blog:logout' %}">Logout</a>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="nav-item pull-right;">  
+                                <a class="btn btn-info mr-2 mb-2" style=" color: rgba(159,151,148,255); background-color: transparent;
+                                text-decoration: none;" href="{% url 'blog:login' %}">Login</a>
+                            </li>
+                            <li class="nav-item;">
+                                <a class= "btn btn-info mb-2" style=" color: rgba(159,151,148,255);background-color: transparent;
+                                text-decoration: none;" href="{% url 'blog:register' %}">Register</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container mt-3" style="background-color:rgba(232, 193, 159, 0.8); border-radius: 35px">
+                {% include "blog/pagination.html" %}
+                {% block page_content %}
+                {% endblock %}
+                {% include "blog/pagination.html" %}
+            </div>
+        </div>
+        {% include "blog/footer.html" %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    {% block javascript %}{% endblock %}
+</body>
+
+</html>

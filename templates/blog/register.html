@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block page_content %}
+
+    {% if registered %}
+        <h2>Thank you <b>{{ username }}</b> for registering!
+    {% else %}
+        <h2>Blog Registration</h2>
+        <form class="my-5" endtype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <input class="btn btn-warning my-3 px-4 py-2" type="submit" name="" value="Register"> 
+        </form>
+    {% endif %}
+
+{% endblock %}

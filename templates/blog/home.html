@@ -1,0 +1,97 @@
+{% extends "blog/base.html" %}
+
+{% block page_content %}
+       
+<div class = "p-4 p-md-5 mb-4 text-white rounded" style='background-color:rgb(64,46,40)' >
+    <div class="row" style="margin-bottom: 50px;">
+        <div class = "col-md-8 ">
+            <h1 class="display-4 myfont">Profile</h1>   
+            <p class ="lead my-3 myfont" style="font-size: 25px; color:rgb(244, 246, 248);">Director of an Electronics group at Sichuan modern vocational college. Currently attending an IT-course in Javascript, Python and IT-security, which will end in February 2022. Looking for an internship at a Stockholm- based IT- company. </p>
+        </div>
+         
+        <div class = "col-md-4 col-md-offset text-center mx-auto">
+        {% load static %}
+            <!--<img src="{% static "2.png" %}" alt="Django" />-->
+            <img src="{% static "touxiang.png" %}" alt="Python"/>
+        </div>
+    </div>
+</div>
+        
+<div class= "row g-5"style="padding-bottom: 25px;padding-top: 25px; " >
+    <div class="col-md-8" >
+        <h3 class='pb-4 border-bottom myfont' style=' padding-left: 15px; '>Read all posts <a href="{% url 'blog:index' %}"><small>Click here...</small></a></h3>
+
+        <h3 class='pb-4 border-bottom myfont' style=' padding-left: 15px; '>Latest posts</h3>
+               
+               
+                                
+                    {% for post in posts_list %}
+                    
+                    <article class ='blog-post  border-light mb-2 p-5' style="background-color: rgba(227,202,212, 0.8); border-radius: 35px ">
+                     <h1 class='blog-post-title'><a href="{% url 'blog:view' post.id %}">{{ post.title }}</a></h1>   
+                    <p class ="blog-post-meta">
+                    Created on {{ post.created_at|date:"Y-m-d H:i"}} by <a href="/blog/user/{{post.author}}">{{post.author}}</a> in <a href="/blog/category/{{post.category}}">{{ post.category|capfirst }}</a>
+                    </p>
+                                       
+                    {{post.body|safe }}           
+                    </article>
+                    
+                    {% endfor %}
+             
+                
+            
+            </div>
+        <div class="col-md-4">
+            <div class="position sticky" style="top: 2rem; padding-bottom: 50;">
+                <div class="p-4 mb-3" style="background-color:rgba(203,103,44,0.8); border-radius: 35px">
+                    <div>
+                        <div style="display: inline-block; margin-right: 10px;">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <div style="display: inline-block;">
+                            <h4 class ="fst-italic myfont">Skills</h4></i>
+                        </div>
+                    </div>
+                   
+                   
+                    <p class="mb-0">
+                        <ul class="fst-italic education">
+                            <li>Html</li>
+                            <li>Css</li>
+                            <li>Javascript</li>
+                            <li>Python</li>
+                            <li>Auto-CAD</li>
+                            <li>Photoshop</li>
+                            <li>IT-security</li>
+                        </ul>
+                        <br>
+                        <div>
+                            <div style="display: inline-block; margin-right: 10px;">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div style="display: inline-block;">
+                                <h4 class ="fst-italic myfont">Education</h4>
+                            </div>
+                        </div>
+                        <ul class="fst-italic education" > 
+                            <li>09.2021-present</br><b>Lexicon Yrkesutbildning, Stockholm, Sweden</b></br> System Developer Python and IT security</li>
+                            <li>09.2001-06.2005</br><b> Chengdu University of Technology, Chengdu, China</b> </br>Electronic information technology, Bachelor of Engineering</li>
+                            <li>03.2004-07.2005</br><b>University of Electronic Science and Technology of China, Chengdu, China</b> </br>Business administration, Bachelor of Administration</li>
+                            
+                        </ul>
+                        
+                    </p>
+
+             
+
+            </div>
+
+        </div>    
+        </div> 
+                  
+    </div>
+   
+
+
+
+{% endblock %}

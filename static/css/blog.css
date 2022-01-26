@@ -1,0 +1,96 @@
+body{
+    padding-top: 70px; /* Needed when using navbar with class=fixed-top */
+    background: url("/static/wuhua1.jpg") center center;   
+    background-attachment: fixed; 
+    background-size:cover;
+    background-color:#cccccc;
+}
+.education{
+    font-family: 'EB Garamond', serif;
+    font-size: 19px;
+}
+.myfont {
+    font-family: 'Sriracha', cursive;
+}
+
+
+.foot {
+    border-top: solid 1px #808080;
+}
+
+label{
+    width:150px;
+}
+
+.errorlist{
+    color: rgb(200, 0, 0);
+}
+
+.logo {
+    font-size: 40px;
+    font-size: 4rem;
+    font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
+    background: url("/static/blog-logo.png") center center no-repeat;
+    color: #FFF;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    text-indent: 100%;
+    width: 104px;
+    height: 46px;
+}
+
+.post-container {
+    background-color: rgba(232, 193, 159, 0.8);
+}
+
+.post-header{
+    margin: 15px 0 30px 0;
+    border-bottom: 1px solid #808080;
+}
+
+.post-author{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.blog-post {
+    overflow: hidden;
+}
+
+
+
+a:link {
+    color: #2F7967;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+color: #871D22;
+background-color: transparent;
+text-decoration: none;
+}
+
+a:hover {
+color: #AA583A;
+background-color: transparent;
+text-decoration: underline;
+}
+
+a:active {
+color: #549192;
+background-color: transparent;
+text-decoration: underline;
+} 
+
+.btn-info:hover {
+    color: rgba(204,197,197,255) !important;
+}
+
+
+
+

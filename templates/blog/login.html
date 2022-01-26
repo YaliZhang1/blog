@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block page_content %}
+    {% if error %}
+        <h1 class="my-3">Login Error</h1>
+        <p>{{ message }}</p>
+    {% else %}
+        <h2>Blog Login</h2>
+        <form class="my-5" action="{% url 'blog:login' %}" method="POST">
+            {% csrf_token %}
+            <p>    
+                <label for="name">Username:</label>
+                <input type="text" name="name"  placeholder="Enter username">
+            </p>
+            <p>
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder="Enter password">
+            </p>        
+            <input class="btn btn-warning my-3 px-4 py-2" type="submit" value="Login">
+        </form>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ list_title }}{% endblock %}
+
+{% block page_content %}
+    <h1 class="mb-5">{{ list_title }}</h1>      
+    {% for post in posts_pag %}
+        <article class="blog-post" style="background-color:rgba(227,202,212, 0.8); border-radius: 15px; padding: 10px;"> 
+            <h2 class="blog-post-title">{{post.title}}</h2> 
+            <p class="blog-post-meta">
+             Created on {{ post.created_at|date:"Y-m-d H:i"}} by <a href="/blog/user/{{post.author}}">{{post.author}}</a> in <a href="/blog/category/{{post.category}}">{{ post.category|capfirst }}</a> <span>Visited {{post.visit}}</span> times</p>
+            <p>{{post.body|striptags|slice:"500"}}...</p>
+            <p>
+            <a href="/blog/view/{{post.id}}" class="btn btn-info">Read...</a>
+            {% ifequal user post.author  %}
+            <a href="/blog/edit/{{post.id}}" class="btn btn-warning">Edit</a>
+            {% endifequal %}
+            </p>
+        </article>
+        <hr />
+    {% endfor %}
+{% endblock %}

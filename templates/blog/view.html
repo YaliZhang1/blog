@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% block page_title %}Post page{% endblock %}
+
+{% block page_content %}
+
+    <div class="post-header pb-3">
+        <h2>{{post.title}}</a></h2>   
+        <h6>Created on {{ post.created_at|date:"Y-m-d H:i"}} by <a href="/blog/user/{{post.author}}">{{post.author}}</a> in <a href="/blog/category/{{post.category}}">{{ post.category|capfirst }}</a> <span>Visited {{post.visit}}</span> times</h6>
+    </div>                      
+
+    <div class="post-body;"style="background-color: rgba(227,202,212, 0.8); border-radius: 25px;padding:20px" >
+        {% autoescape off %}{{post.body}}{% endautoescape %}
+    </div>
+
+
+{% endblock %}

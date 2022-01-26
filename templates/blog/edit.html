@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+{% block page_title %}Edit blog post{% endblock %}
+
+{% block javascript %}
+<script src="https://cdn.tiny.cloud/1/krshgv6cl9nukay3ofwdydj7an42w0zsrrlbes5r5a7uunbv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+{% endblock %}
+
+{% block page_content %}
+{% if list_of_posts_by_user %}
+    <h1>Posts by {{ request.user }}</h1>
+    <p><a href="/blog/edit/0" class="btn btn-warning">Create a new post</a> or edit an old one in the list below.</p>
+    {% if list_of_posts_by_user|length > 0 %}
+        <ul>
+            {% for post in list_of_posts_by_user %}
+            <li>
+                <a href="/blog/edit/{{post.id}}">{{ post.title }}</a> (created {{ post.created_at|date:"Y-m-d H:i" }})
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>The list of older posts is empty.</p>
+    {% endif %}
+{% elif post_form %}
+    <style >
+        label{ width: 200px; vertical-align: top; }
+    </style>
+    <p>Use the form below to edit your blog post.</p>
+    <form action="{{ post_form_action }}" method="POST" novalidate>
+        {{ post_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Save" class="btn btn-success"></p>
+        {% if post_form.instance.author %}
+            <p><label>Post written by:</label> {{ post_form.instance.author }}</p>
+            <p><label>Created at:</label> {{ post_form.instance.created_at|date:"Y-m-d H:i" }}</p>
+            <p><label>Updated at:</label> {{ post_form.instance.updated_at|date:"Y-m-d H:i" }}</p>
+            <p><label>Post views:</label> {{ post_form.instance.visit }}</p>
+        {% endif %}
+    </form>
+{% else %}
+    <p><a href="/blog/edit/0" class="btn btn-warning">Create a new post</a></p>
+{% endif %}
+{% endblock %}

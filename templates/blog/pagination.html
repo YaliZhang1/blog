@@ -1,0 +1,45 @@
+<nav aria-label="Page navigation"> 
+    <ul class="pagination justify-content-end my-5">
+    {% if posts_pag.has_previous %}
+    <li class="page-item ">
+      <a class="page-link " href="?page=1" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">begin</span>
+      </a>
+
+    <a href="?page={{ posts_pag.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+    {% endif %}
+    {% if posts_pag.number > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ posts_pag.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&hellip;</span>
+      </a>
+    </li>
+    {% endif %}
+    {% for n in posts_pag.paginator.page_range %}
+      {% if posts_pag.number == n %}
+        <li class="page-item active">
+          <span class="page-link"style="background-color: #40AABB;">{{ n }}<span class="sr-only">(current)</span></span>
+        </li>
+      {% elif n > posts_pag.number|add:'-5' and n < posts_pag.number|add:'5' %}
+        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if posts_pag.number < posts_pag.paginator.num_pages %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ posts_pag.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&hellip;</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if posts_pag.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ posts_pag.paginator.num_pages }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">end</span>
+        </a>
+      </li>
+      {% endif %}  
+
+     </ul>
+     </nav>
